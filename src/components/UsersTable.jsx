@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 const HEADERS = ['ID','Name','Username','eMail']
 
-const UsersTable = ({users, filter}) =>{
+const UsersTable = ({users, filter, userSearched}) =>{
 
     const handleInputChange = (value) =>{
         console.log(value.target.name);
@@ -10,7 +10,7 @@ const UsersTable = ({users, filter}) =>{
     };
 
     useEffect(()=>{
-        console.log(users);
+        console.log(userSearched);
     })
 
     return(
@@ -21,7 +21,7 @@ const UsersTable = ({users, filter}) =>{
                     {HEADERS.map((header)=> <th>{header}</th>)}
                 </tr>
                 <tr key='headerFilter'>
-                    {HEADERS.map((header)=> <th><input name={header} onChange={handleInputChange}/></th>)}
+                    {HEADERS.map((header)=> <th><input name={header} onChange={handleInputChange}/>{userSearched?<ul>{userSearched.map((user)=><li> {user.name} </li>)}</ul>:null}</th>)}
                 </tr>
                 {users.map((user)=>
                 <tr key={user.id}>

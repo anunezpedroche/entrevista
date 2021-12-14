@@ -8,6 +8,7 @@ function App() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [shownUsers, setShownUsers] = useState([]);
+  const [usersSearched, setUsersSearched] = useState([]);
   const fetchData = async () =>{
     const data = await fetch('https://jsonplaceholder.typicode.com/users');
     const resp = await data.json();
@@ -35,7 +36,7 @@ function App() {
         return users.filter((user)=>user.email.toLowerCase().indexOf(value.toLowerCase()) > -1);
       }
     };
-
+    setUsersSearched(filteredUsers);
     console.log(filteredUsers);
     setShownUsers(filteredUsers);
     if(value===''){
@@ -50,7 +51,7 @@ function App() {
   return (
     <div className="App">
 
-    {loading? 'Loading...':<UsersTable users={shownUsers} filter={filterData}/>}
+    {loading? 'Loading...':<UsersTable users={shownUsers} filter={filterData} userSearched={usersSearched}/>}
 
     </div>
   );
